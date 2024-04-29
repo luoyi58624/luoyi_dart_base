@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.0.2...v1.0.3) (2024-04-29)
+
+
+### Bug Fixes
+
+* 必须添加path，否则隐式依赖无法发布pub ([64375f8](https://github.com/luoyi58624/luoyi_dart_base/commit/64375f8a7be1a25bafbce9e78ab179c5756b6059))
+
 ## [1.0.2](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.0.1...v1.0.2) (2024-04-29)
 
 
