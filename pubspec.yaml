@@ -1,7 +1,7 @@
 name: luoyi_dart_base
 description: my dart base library.
 version: 1.0.0
-repository: https://gitee.com/luoyi666/luoyi_dart_base
+repository: https://github.com/luoyi58624/luoyi_dart_base
 
 environment:
   sdk: ^3.0.0
@@ -11,10 +11,6 @@ dependencies:
   archive: ^3.4.10
   # 一组加密哈希函数：MD5、SHA
   crypto: ^3.0.3
-  # 对List、Map做增强
-  collection: ^1.18.0
-  # 生成假数据
-  faker: ^2.1.0
   # 在控制器打印日志
   logger: ^2.1.0
   # 跨平台路径操作库
