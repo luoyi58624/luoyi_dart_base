@@ -1,6 +1,3 @@
-/// Support for doing something awesome.
-///
-/// More dartdocs go here.
 library luoyi_dart_base;
 
 import 'dart:convert';

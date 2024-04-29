@@ -11,7 +11,7 @@ linter:
     # 因为在dart中，以_开头的修饰的成员表示私有的，为了防止用户困惑，dart推荐不要在函数作用域中使用_作为变量前缀，但我们有时候习惯添加_用作变量的重命名，所以关闭此限制
     no_leading_underscores_for_local_identifiers: false
     # 关闭校验隐式依赖，即导入的包属于其他包的依赖，但用户并未在当前项目中显示声明此依赖，此校验不会出现严重问题，即使其他包删除了此依赖，用户只需在pubspec中添加缺失的依赖即可
-    depend_on_referenced_packages: false
+    depend_on_referenced_packages: true
     # 允许part of直接指向库名，而不是强制字符串
     use_string_in_part_of_directives: false
     # 其他校验

@@ -11,9 +11,8 @@ dependencies:
   archive: ^3.4.10
   # 一组加密哈希函数：MD5、SHA
   crypto: ^3.0.3
-  # 在控制器打印日志
   logger: ^2.1.0
-  # 生成唯一字符串
+  path: ^1.9.0
   uuid: ^4.3.3
 
 dev_dependencies:
