@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.0.1...v1.0.2) (2024-04-29)
+
+
+### Bug Fixes
+
+* 移除path依赖 ([adbc55d](https://github.com/luoyi58624/luoyi_dart_base/commit/adbc55df0e0a44c39a6d3a7f5a9cd4b4f18c5af8))
+
 ## [1.0.1](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.0.0...v1.0.1) (2024-04-29)
 
 
