@@ -13,8 +13,6 @@ dependencies:
   crypto: ^3.0.3
   # 在控制器打印日志
   logger: ^2.1.0
-  # 跨平台路径操作库
-  path: ^1.9.0
   # 生成唯一字符串
   uuid: ^4.3.3
 

@@ -335,9 +335,9 @@ class DartUtil {
     }
     const unitArr = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
     int index;
-    var srcsize = safeDouble(size);
-    index = (math.log(srcsize) / math.log(1024)).floor();
-    return '${(srcsize / math.pow(1024, index)).toStringAsFixed(2)}${unitArr[index]}';
+    var $size = safeDouble(size);
+    index = (math.log($size) / math.log(1024)).floor();
+    return '${($size / math.pow(1024, index)).toStringAsFixed(2)}${unitArr[index]}';
   }
 
   /// 获取地址中的文件名
