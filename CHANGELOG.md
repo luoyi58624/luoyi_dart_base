@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.0.3...v1.1.0) (2024-05-13)
+
+
+### Features
+
+* add filterFormKeys ([bc36364](https://github.com/luoyi58624/luoyi_dart_base/commit/bc36364a38d578f72c081f336954e03b9c7a27c6))
+* export collection ([aa3c595](https://github.com/luoyi58624/luoyi_dart_base/commit/aa3c59507f291a20eb1b980a7d08db56019559cb))
+
 ## [1.0.3](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.0.2...v1.0.3) (2024-04-29)
 
 
