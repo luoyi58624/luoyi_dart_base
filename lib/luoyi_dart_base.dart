@@ -8,8 +8,6 @@ import 'package:crypto/crypto.dart' as crypto;
 import 'package:logger/logger.dart';
 import 'package:uuid/uuid.dart';
 
-export 'package:collection/collection.dart';
-
 part 'src/extensions/map.dart';
 
 part 'src/model.dart';
