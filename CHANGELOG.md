@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.1.0...v1.1.1) (2024-05-13)
+
+
+### Bug Fixes
+
+* 移除collection ([46eea3b](https://github.com/luoyi58624/luoyi_dart_base/commit/46eea3bd0895ef0fa95122d418c7e330a677a66c))
+
 ## [1.1.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.0.3...v1.1.0) (2024-05-13)
 
 
