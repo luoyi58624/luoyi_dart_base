@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.1.1...v1.2.0) (2024-05-15)
+
+
+### Features
+
+* Map扩展函数新增filter、toPractical ([fcd60c3](https://github.com/luoyi58624/luoyi_dart_base/commit/fcd60c3615b78a806903a808542c84261feb6a44))
+
 ## [1.1.1](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.1.0...v1.1.1) (2024-05-13)
 
 
