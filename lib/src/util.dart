@@ -71,20 +71,24 @@ class DartUtil {
     return str.substring(0, str.length - 1);
   }
 
-  /// 将动态类型转换成基础数据类型，转换后的值可以安全使用case确定类型。
-  /// 注意：dart中的List、Map等集合的cast方法只是用于编译时，当实际变量类型并非cast的目标类型，则会报运行时错误。
-  static dynamic dynamicToTargetType(dynamic value, String type) {
+  /// 将动态类型转换成实际基础类型：String、int、double、num、bool，如果
+  /// * strict 如果为true，对于非基础类型将一律返回null
+  static dynamic dynamicToBaseType(dynamic value, [bool? strict]) {
+    String type = value.runtimeType.toString();
     if (type == 'String') {
-      return safeString(value);
-    } else if (type == 'num' || type == 'double') {
-      return safeDouble(value);
-    } else if (type == 'int') {
-      return safeInt(value);
-    } else if (type == 'bool') {
-      return safeBool(value);
-    } else {
-      return null;
+      dynamic v = int.tryParse(value);
+      if (v != null) return v;
+      v = double.tryParse(value);
+      if (v != null) return v;
+      v = bool.tryParse(value);
+      if (v != null) return v;
+      return value;
     }
+    if (type == 'int') return value;
+    if (type == 'double') return value;
+    if (type == 'bool') return value;
+    if (type == 'num') return value;
+    return strict == true ? null : value;
   }
 
   /// 安全解析String，如果传递的value为空，则返回一个默认值
@@ -131,7 +135,7 @@ class DartUtil {
   }
 
   /// 安全解析bool类型
-  static bool safeBool(dynamic value) {
+  static bool safeBool(dynamic value, {bool defaultValue = false}) {
     if (value is String) {
       try {
         return bool.parse(value, caseSensitive: false);
@@ -140,11 +144,8 @@ class DartUtil {
       }
     } else if (value is bool) {
       return value;
-    } else if (value == null) {
-      return false;
-    } else {
-      return bool.tryParse(value, caseSensitive: false) ?? false;
     }
+    return bool.tryParse(value, caseSensitive: false) ?? defaultValue;
   }
 
   /// 安全解析List，若解析失败则返回空List
@@ -509,5 +510,136 @@ bool _compareResult(CompareType compareType, num result) {
       return result > 0;
     case CompareType.thanEqual:
       return result >= 0;
+  }
+}
+
+/// 自动转换Map的实际类型
+Map _autoCastMap<K, V>(Map<K, V> map) {
+  Map<String, bool> keyTypeMap = {
+    'dynamic': false,
+    'string': false,
+    'int': false,
+    'double': false,
+    'num': false,
+    'bool': false,
+  };
+
+  Map<String, bool> valueTypeMap = {
+    'dynamic': false,
+    'string': false,
+    'int': false,
+    'double': false,
+    'num': false,
+    'bool': false,
+    'null': false,
+    'object': false,
+  };
+
+  map.forEach((k, v) {
+    dynamic key = DartUtil.dynamicToBaseType(k, true);
+    assert(key != null, 'Map key不是基础数据类型，autoCast失败');
+    if (key is int) {
+      keyTypeMap['int'] = true;
+    } else if (key is double) {
+      keyTypeMap['double'] = true;
+    } else if (key is bool) {
+      keyTypeMap['bool'] = true;
+    } else {
+      keyTypeMap['string'] = true;
+    }
+
+    dynamic value = DartUtil.dynamicToBaseType(v);
+    if (value == null) {
+      valueTypeMap['null'] = true;
+    } else if (value is int) {
+      valueTypeMap['int'] = true;
+    } else if (value is double) {
+      valueTypeMap['double'] = true;
+    } else if (value is bool) {
+      valueTypeMap['bool'] = true;
+    } else if (value is String) {
+      valueTypeMap['string'] = true;
+    } else if (value is Map) {
+    } else {
+      valueTypeMap['object'] = true;
+    }
+  });
+
+  keyTypeMap = keyTypeMap.filter((k, v) => v == true);
+  valueTypeMap = valueTypeMap.filter((k, v) => v == true);
+
+  late String targetKeyType;
+  late String targetValueType;
+
+  if (keyTypeMap.length == 1) {
+    targetKeyType = keyTypeMap.keys.first;
+  } else if (keyTypeMap.length == 3 && keyTypeMap['num'] == true) {
+    targetKeyType = 'num';
+  } else {
+    targetKeyType = 'dynamic';
+  }
+
+  if (valueTypeMap.length == 1) {
+    targetValueType = valueTypeMap.keys.first;
+  } else if (valueTypeMap.length == 3 && valueTypeMap['num'] == true) {
+    targetValueType = 'num';
+  } else {
+    targetValueType = valueTypeMap['null'] == true ? 'dynamic' : 'object';
+  }
+
+  if (targetKeyType == 'dynamic') {
+    if (targetValueType == 'object') return LinkedHashMap<Object, Object>.from(map);
+    if (targetValueType == 'string') return LinkedHashMap<Object, String>.from(map);
+    if (targetValueType == 'int') return LinkedHashMap<Object, int>.from(map);
+    if (targetValueType == 'double') return LinkedHashMap<Object, double>.from(map);
+    if (targetValueType == 'num') return LinkedHashMap<Object, num>.from(map);
+    if (targetValueType == 'bool') return LinkedHashMap<Object, bool>.from(map);
+    return map.cast<Object, dynamic>();
+  } else {
+    if (targetKeyType == 'string') {
+      if (targetValueType == 'object') return LinkedHashMap<String, Object>.from(map);
+      if (targetValueType == 'string') return LinkedHashMap<String, String>.from(map);
+      if (targetValueType == 'int') return LinkedHashMap<String, int>.from(map);
+      if (targetValueType == 'double') return LinkedHashMap<String, double>.from(map);
+      if (targetValueType == 'num') return LinkedHashMap<String, num>.from(map);
+      if (targetValueType == 'bool') return LinkedHashMap<String, bool>.from(map);
+      return LinkedHashMap<String, dynamic>.from(map);
+    }
+    if (targetKeyType == 'int') {
+      if (targetValueType == 'object') return LinkedHashMap<int, Object>.from(map);
+      if (targetValueType == 'string') return LinkedHashMap<int, String>.from(map);
+      if (targetValueType == 'int') return LinkedHashMap<int, int>.from(map);
+      if (targetValueType == 'double') return LinkedHashMap<int, double>.from(map);
+      if (targetValueType == 'num') return LinkedHashMap<int, num>.from(map);
+      if (targetValueType == 'bool') return LinkedHashMap<int, bool>.from(map);
+      return LinkedHashMap<int, dynamic>.from(map);
+    }
+
+    if (targetKeyType == 'double') {
+      if (targetValueType == 'object') return LinkedHashMap<double, Object>.from(map);
+      if (targetValueType == 'string') return LinkedHashMap<double, String>.from(map);
+      if (targetValueType == 'int') return LinkedHashMap<double, int>.from(map);
+      if (targetValueType == 'double') return LinkedHashMap<double, double>.from(map);
+      if (targetValueType == 'num') return LinkedHashMap<double, num>.from(map);
+      if (targetValueType == 'bool') return LinkedHashMap<double, bool>.from(map);
+      return LinkedHashMap<double, dynamic>.from(map);
+    }
+    if (targetKeyType == 'bool') {
+      if (targetValueType == 'object') return LinkedHashMap<bool, Object>.from(map);
+      if (targetValueType == 'string') return LinkedHashMap<bool, String>.from(map);
+      if (targetValueType == 'int') return LinkedHashMap<bool, int>.from(map);
+      if (targetValueType == 'double') return LinkedHashMap<bool, double>.from(map);
+      if (targetValueType == 'num') return LinkedHashMap<bool, num>.from(map);
+      if (targetValueType == 'bool') return LinkedHashMap<bool, bool>.from(map);
+      return LinkedHashMap<bool, dynamic>.from(map);
+    }
+
+    if (targetValueType == 'object') return LinkedHashMap<num, Object>.from(map);
+    if (targetValueType == 'string') return LinkedHashMap<num, String>.from(map);
+    if (targetValueType == 'int') return LinkedHashMap<num, int>.from(map);
+    if (targetValueType == 'double') return LinkedHashMap<num, double>.from(map);
+    if (targetValueType == 'num') return LinkedHashMap<num, num>.from(map);
+    if (targetValueType == 'bool') return LinkedHashMap<num, bool>.from(map);
+    return LinkedHashMap<num, dynamic>.from(map);
   }
 }

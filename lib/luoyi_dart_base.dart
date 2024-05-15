@@ -1,5 +1,6 @@
 library luoyi_dart_base;
 
+import 'dart:collection';
 import 'dart:convert';
 import 'dart:math' as math;
 import 'package:archive/archive.dart';
