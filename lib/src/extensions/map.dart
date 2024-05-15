@@ -28,7 +28,8 @@ extension DartMapExtension<K, V> on Map<K, V> {
   /// Map<String, dynamic> map2 = map.toPractical();
   /// ```
   ///
-  /// 吐槽：dart的类型系统感觉十分愚蠢，而且很死板，在开发过程中你会遇到各种各样的类型转换错误
+  /// 提示：Dart的类型系统很严格，对于上面的例子，如果你有一个函数，要求入参类型为Map<String, dynamic>，若你直接传递map，
+  /// 那么就直接输出类型转换错误，你必须手动将它强转为目标类型，当然，此函数主要解决的是处理各种类型的动态Map。
   Map toPractical() {
     Map<String, bool> keyTypeMap = {
       'dynamic': false,
@@ -101,6 +102,7 @@ extension DartMapExtension<K, V> on Map<K, V> {
       targetValueType = valueTypeMap['null'] == true ? 'dynamic' : 'object';
     }
 
+    // 泛型是不能指定字符串的，只能一条一条地列出来进行转换
     if (targetKeyType == 'dynamic') {
       if (targetValueType == 'object') return LinkedHashMap<Object, Object>.from(this);
       if (targetValueType == 'string') return LinkedHashMap<Object, String>.from(this);
