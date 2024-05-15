@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.3.0...v1.3.1) (2024-05-15)
+
+
+### Bug Fixes
+
+* 修复safeBool错误 ([ee7c26d](https://github.com/luoyi58624/luoyi_dart_base/commit/ee7c26d5110bcdb4bf3bd4c528af6fb7bef4f2d9))
+
 ## [1.3.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.2.0...v1.3.0) (2024-05-15)
 
 
