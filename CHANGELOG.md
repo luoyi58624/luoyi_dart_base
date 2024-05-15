@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.2.0...v1.3.0) (2024-05-15)
+
+
+### Features
+
+* 添加ModelSerialize抽象类 ([a2d1c41](https://github.com/luoyi58624/luoyi_dart_base/commit/a2d1c410f7fcd39e414e3f4d16e68e0dd266481f))
+
 ## [1.2.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.1.1...v1.2.0) (2024-05-15)
 
 
