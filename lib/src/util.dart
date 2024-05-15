@@ -145,7 +145,7 @@ class DartUtil {
     } else if (value is bool) {
       return value;
     }
-    return bool.tryParse(value, caseSensitive: false) ?? defaultValue;
+    return defaultValue;
   }
 
   /// 安全解析List，若解析失败则返回空List
