@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.3.1...v1.4.0) (2024-05-21)
+
+
+### Features
+
+* 添加异步函数 ([f649cc2](https://github.com/luoyi58624/luoyi_dart_base/commit/f649cc2a481de3e3073c3dea87632409cdff7ef4))
+
 ## [1.3.1](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.3.0...v1.3.1) (2024-05-15)
 
 
