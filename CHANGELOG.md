@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.4.0...v1.5.0) (2024-05-22)
+
+
+### Features
+
+* 将扩展函数移至DartUtil ([16ef3fe](https://github.com/luoyi58624/luoyi_dart_base/commit/16ef3fe047ff903825d97fb89ad2e533f183db93))
+
 ## [1.4.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.3.1...v1.4.0) (2024-05-21)
 
 
