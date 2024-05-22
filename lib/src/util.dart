@@ -342,14 +342,10 @@ class DartUtil {
   }
 
   /// 获取地址中的文件名
-  static String? getUrlFileName(String? url) {
-    return p.basename(url ?? '');
-  }
+  static String? getUrlFileName(String? url) => p.basename(url ?? '');
 
   /// 获取地址中的文件名但不包含扩展名
-  static String? getUrlFileNameNoExtension(String? url) {
-    return p.basenameWithoutExtension(url ?? '');
-  }
+  static String? getUrlFileNameNoExtension(String? url) => p.basenameWithoutExtension(url ?? '');
 
   /// 获取文件名后缀
   static String? getFileSuffix(String fileName) {
@@ -361,22 +357,72 @@ class DartUtil {
     }
   }
 
-  /// 判断文件名是否是图片
-  static bool isImage(String fileName) {
-    String? suffixName = getFileSuffix(fileName);
-    return ['jpg', 'jpeg', 'png', 'gif'].contains(suffixName);
+  /// 判断文件是否是图片
+  static bool isImage(String fileName, [List<String>? ext]) =>
+      (ext ?? ['jpg', 'jpeg', 'png', 'gif', 'bmp']).contains(getFileSuffix(fileName));
+
+  /// 判断文件是否是静态图片
+  static bool isStaticImage(String fileName, [List<String>? ext]) =>
+      (ext ?? ['jpg', 'jpeg', 'png']).contains(getFileSuffix(fileName));
+
+  /// 判断文件是否是视频
+  static bool isVideo(String fileName, [List<String>? ext]) =>
+      (ext ?? ['mkv', 'mp4', 'avi', 'mov', 'wmv', 'mpg', 'mpeg']).contains(getFileSuffix(fileName));
+
+  /// 判断文件是否是音频
+  static bool isAudio(String fileName, [List<String>? ext]) =>
+      (ext ?? ['mp3', 'wav', 'wma', 'amr', 'ogg']).contains(getFileSuffix(fileName));
+
+  /// 判断文件是否是PPT
+  static bool isPPT(String fileName) => ['ppt', 'pptx'].contains(getFileSuffix(fileName));
+
+  /// 判断文件是否是Word
+  static bool isWord(String fileName) => ['doc', 'docx'].contains(getFileSuffix(fileName));
+
+  /// 判断文件是否是Excel
+  static bool isExcel(String fileName) => ['xls', 'xlsx'].contains(getFileSuffix(fileName));
+
+  /// Checks if string is URL.
+  static bool isURL(String s) => hasMatch(s,
+      r"^((((H|h)(T|t)|(F|f))(T|t)(P|p)((S|s)?))\://)?(www.|[a-zA-Z0-9].)[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,7}(\:[0-9]{1,5})*(/($|[a-zA-Z0-9\.\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*$");
+
+  /// Checks if string is email.
+  static bool isEmail(String s) => hasMatch(s,
+      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
+
+  /// Checks if string is phone number.
+  static bool isPhoneNumber(String s) {
+    if (s.length > 16 || s.length < 9) return false;
+    return hasMatch(s, r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$');
   }
 
-  /// 判断文件名是否是静态图片
-  static bool isStaticImage(String fileName) {
-    String? suffixName = getFileSuffix(fileName);
-    return ['jpg', 'jpeg', 'png'].contains(suffixName);
-  }
+  /// Checks if string is DateTime (UTC or Iso8601).
+  static bool isDateTime(String s) => hasMatch(s, r'^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}.\d{3}Z?$');
 
-  /// 判断文件名是否是视频
-  static bool isVideo(String fileName) {
-    String? suffixName = getFileSuffix(fileName);
-    return ['mkv', 'mp4', 'avi', 'mov', 'wmv'].contains(suffixName);
+  /// Checks if string is MD5 hash.
+  static bool isMD5(String s) => hasMatch(s, r'^[a-f0-9]{32}$');
+
+  /// Checks if string is SHA1 hash.
+  static bool isSHA1(String s) => hasMatch(s, r'(([A-Fa-f0-9]{2}\:){19}[A-Fa-f0-9]{2}|[A-Fa-f0-9]{40})');
+
+  /// Checks if string is SHA256 hash.
+  static bool isSHA256(String s) => hasMatch(s, r'([A-Fa-f0-9]{2}\:){31}[A-Fa-f0-9]{2}|[A-Fa-f0-9]{64}');
+
+  /// Checks if string is SSN (Social Security Number).
+  static bool isSSN(String s) => hasMatch(s, r'^(?!0{3}|6{3}|9[0-9]{2})[0-9]{3}-?(?!0{2})[0-9]{2}-?(?!0{4})[0-9]{4}$');
+
+  /// Checks if string is binary.
+  static bool isBinary(String s) => hasMatch(s, r'^[0-1]+$');
+
+  /// Checks if string is IPv4.
+  static bool isIPv4(String s) => hasMatch(s, r'^(?:(?:^|\.)(?:2(?:5[0-5]|[0-4]\d)|1?\d?\d)){4}$');
+
+  /// Checks if string is IPv6.
+  static bool isIPv6(String s) => hasMatch(s,
+      r'^((([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}:[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){5}:([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){4}:([0-9A-Fa-f]{1,4}:){0,2}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){3}:([0-9A-Fa-f]{1,4}:){0,3}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){2}:([0-9A-Fa-f]{1,4}:){0,4}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(([0-9A-Fa-f]{1,4}:){0,5}:((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(::([0-9A-Fa-f]{1,4}:){0,5}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|([0-9A-Fa-f]{1,4}::([0-9A-Fa-f]{1,4}:){0,5}[0-9A-Fa-f]{1,4})|(::([0-9A-Fa-f]{1,4}:){0,6}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,7}:))$');
+
+  static bool hasMatch(String? value, String pattern) {
+    return (value == null) ? false : RegExp(pattern).hasMatch(value);
   }
 
   /// 判断list集合中是否包含满足某个条件的元素
@@ -387,6 +433,44 @@ class DartUtil {
       }
     }
     return false;
+  }
+
+  /// 根据条件返回一个新的Map
+  static Map<K, V> mapFilter<K, V>(Map<K, V> map, bool Function(K key, V value) test) {
+    Map<K, V> newMap = {};
+    for (K k in map.keys) {
+      if (test(k, map[k] as V)) {
+        newMap[k] = map[k] as V;
+      }
+    }
+    return newMap;
+  }
+
+  /// 根据keys集合，返回一个新的Map
+  static Map<K, V> mapFilterFromKeys<K, V>(Map<K, V> map, List<K> keys) {
+    Map<K, V> newMap = {};
+    for (K key in keys) {
+      newMap[key] = map[key] as V;
+    }
+    return newMap;
+  }
+
+  /// 将 Map 转换成实际类型，例如：
+  /// ```dart
+  /// // runtimeType: _Map<dynamic, dynamic>
+  /// Map map = {'name': 'hihi', 'age': 20};
+  ///
+  /// // runtimeType: _Map<String, Object>
+  /// Map castMap = DartUtil.mapAutoCast(map);
+  ///
+  /// // runtimeType: _Map<dynamic, dynamic>
+  /// Map map2 = {'name': 'hihi', 'age': 20, 'test': null};
+  ///
+  /// // runtimeType: _Map<String, dynamic>
+  /// Map castMap2 = DartUtil.mapAutoCast(map2);
+  /// ```
+  static dynamic mapAutoCast<K, V>(Map<K, V> map) {
+    return _autoCastMap(map);
   }
 
   /// 拼接上级地址，返回新的path，主要过滤新地址尾部多余的/
@@ -441,19 +525,13 @@ class DartUtil {
   }
 
   /// 使用md5加密字符串
-  static String md5(String str) {
-    return crypto.md5.convert(utf8.encode(str)).toString();
-  }
+  static String md5(String str) => crypto.md5.convert(utf8.encode(str)).toString();
 
   /// 字符串转base64
-  static String toBase64(String str) {
-    return _base64Codec.encode(str);
-  }
+  static String toBase64(String str) => _base64Codec.encode(str);
 
   /// base64转字符串
-  static String formBase64(String base64Str) {
-    return _base64Codec.decode(base64Str);
-  }
+  static String formBase64(String base64Str) => _base64Codec.decode(base64Str);
 
   /// 将字符串编码压缩
   static String encodeString(String str) {
@@ -651,8 +729,8 @@ Map _autoCastMap<K, V>(Map<K, V> map) {
     }
   });
 
-  keyTypeMap = keyTypeMap.filter((k, v) => v == true);
-  valueTypeMap = valueTypeMap.filter((k, v) => v == true);
+  keyTypeMap = DartUtil.mapFilter(keyTypeMap, (k, v) => v == true);
+  valueTypeMap = DartUtil.mapFilter(valueTypeMap, (k, v) => v == true);
 
   late String targetKeyType;
   late String targetValueType;
