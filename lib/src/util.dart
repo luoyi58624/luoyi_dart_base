@@ -639,7 +639,7 @@ class DartUtil {
   /// 延迟指定毫秒时间执行函数
   ///
   /// @return [Timer] 手动执行cancel方法可以取消延迟任务
-  static Timer delayed(void Function() fun, [int? wait]) {
+  static Timer delay(void Function() fun, [int? wait]) {
     return Timer(Duration(milliseconds: wait ?? 0), fun);
   }
 }
