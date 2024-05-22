@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.6.0...v1.6.1) (2024-05-22)
+
+
+### Bug Fixes
+
+* setLogger修复为静态方法 ([dfa8622](https://github.com/luoyi58624/luoyi_dart_base/commit/dfa8622492faabc18c6f01e15731f4acfdf7cfc5))
+
 ## [1.6.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.5.1...v1.6.0) (2024-05-22)
 
 
