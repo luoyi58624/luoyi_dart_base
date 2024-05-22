@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.5.1...v1.6.0) (2024-05-22)
+
+
+### Features
+
+* logger导出Level api ([e75e351](https://github.com/luoyi58624/luoyi_dart_base/commit/e75e351ea9fc588f83251b4f83bb927b32c8b6c3))
+
 ## [1.5.1](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.5.0...v1.5.1) (2024-05-22)
 
 
