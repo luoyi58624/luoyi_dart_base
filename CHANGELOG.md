@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.5.0...v1.5.1) (2024-05-22)
+
+
+### Bug Fixes
+
+* DartUtil delayed -&gt; delay ([4b72e73](https://github.com/luoyi58624/luoyi_dart_base/commit/4b72e738e0dea4a59405f415cd3abb9aa7a950de))
+
 ## [1.5.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.4.0...v1.5.0) (2024-05-22)
 
 
