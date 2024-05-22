@@ -35,7 +35,7 @@ class DartBase {
   ///   initLogger(level: DartUtil.isRelease ? null : Level.info);
   /// ```
   /// * logger 完全自定义日志实例，请自行添加依赖包，本库仅导出 Level Api
-  void setLogger({Level? level, Logger? logger}) {
+  static void setLogger({Level? level, Logger? logger}) {
     _logger = logger ??
         Logger(
           printer: _prettyPrinter,
