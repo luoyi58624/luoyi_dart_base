@@ -12,11 +12,13 @@ import 'package:uuid/uuid.dart';
 
 export 'package:logger/logger.dart' show Level;
 
-part 'src/model.dart';
+part 'src/extension.dart';
+
+part 'src/logger.dart';
 
 part 'src/util.dart';
 
-part 'src/logger.dart';
+part 'src/model.dart';
 
 part 'src/uuid.dart';
 
