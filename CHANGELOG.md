@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.6.1...v1.7.0) (2024-05-30)
+
+
+### Features
+
+* add DartNumExtension ([86ecdfe](https://github.com/luoyi58624/luoyi_dart_base/commit/86ecdfea072f93b28704a1143069f141e04b9b96))
+
 ## [1.6.1](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.6.0...v1.6.1) (2024-05-22)
 
 
