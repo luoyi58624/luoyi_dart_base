@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.7.0...v1.8.0) (2024-06-07)
+
+
+### Features
+
+* 添加节流、防抖等扩展函数 ([bffb157](https://github.com/luoyi58624/luoyi_dart_base/commit/bffb157ca3d5ca26e1290b3621e7489623631859))
+
 ## [1.7.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.6.1...v1.7.0) (2024-05-30)
 
 
