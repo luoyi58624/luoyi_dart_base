@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.1](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.8.0...v1.8.1) (2024-06-07)
+
+
+### Bug Fixes
+
+* example改名为examples，防止dart更新依赖时加载示例依赖 ([eeb6d7d](https://github.com/luoyi58624/luoyi_dart_base/commit/eeb6d7d77748b6519f4ca73256940252eb87cfbe))
+
 ## [1.8.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.7.0...v1.8.0) (2024-06-07)
 
 
