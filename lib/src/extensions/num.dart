@@ -1,4 +1,4 @@
-part of luoyi_dart_base;
+import 'dart:async';
 
 extension DartNumExtension on num {
   /// Utility to delay some callback (or code execution).

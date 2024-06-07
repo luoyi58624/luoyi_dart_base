@@ -1,4 +1,5 @@
 import 'package:luoyi_dart_base/luoyi_dart_base.dart';
+import 'package:luoyi_dart_base/src/extensions/map.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -11,17 +12,30 @@ void main() {
       expect(DartUtil.onlyOneNotNull([null, null, null]), isFalse);
       expect(DartUtil.onlyOneNotNull([null, null, null], allowAllNull: true), isTrue);
     });
+  });
 
-    test('mapAutoCast', () {
+  group('DartMapExtension', () {
+    test('autoCast', () {
       Map map = {'name': 'hihi', 'age': 20};
-      Map<String, dynamic> castMap = DartUtil.mapAutoCast(map);
+      Map<String, dynamic> castMap = map.autoCast();
       expect(map.runtimeType.toString(), '_Map<dynamic, dynamic>');
       expect(castMap.runtimeType.toString(), '_Map<String, Object>');
 
       Map map2 = {'name': 'hihi', 'age': 20, 'demo': null};
-      Map castMap2 = DartUtil.mapAutoCast(map2);
+      Map castMap2 = map2.autoCast();
       expect(map2.runtimeType.toString(), '_Map<dynamic, dynamic>');
       expect(castMap2.runtimeType.toString(), '_Map<String, dynamic>');
+    });
+  });
+
+  group('DartFunExtension', () {
+    test('throttle', () {
+      i('==========开始=========');
+      void hello() {
+        i('hello');
+      }
+
+      hello.throttle(2000)();
     });
   });
 }

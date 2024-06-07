@@ -1,46 +1,48 @@
-part of luoyi_dart_base;
+import 'package:logger/logger.dart';
 
-PrettyPrinter _prettyPrinter = PrettyPrinter(
+import 'global.dart';
+
+PrettyPrinter prettyPrinter = PrettyPrinter(
   methodCount: 2,
   errorMethodCount: 2,
   printEmojis: false,
   noBoxingByDefault: false,
 );
 
-var _logger = Logger(
-  printer: _prettyPrinter,
-  filter: _LogFilter(loggerLevel: null),
+var loggerInstance = Logger(
+  printer: prettyPrinter,
+  filter: LoggerFilter(loggerLevel: null),
 );
 
 /// debug 级别日志输出
 void d(dynamic message, [dynamic title]) {
-  _logger.d(message, error: title);
+  loggerInstance.d(message, error: title);
 }
 
 /// info 级别日志输出
 void i(dynamic message, [dynamic title]) {
-  _logger.i(message, error: title);
+  loggerInstance.i(message, error: title);
 }
 
 /// warning 级别日志输出
 void w(dynamic message, [dynamic title]) {
-  _logger.w(message, error: title);
+  loggerInstance.w(message, error: title);
 }
 
 /// error 级别日志输出
 void e(dynamic message, [dynamic title]) {
-  _logger.e(message, error: title);
+  loggerInstance.e(message, error: title);
 }
 
-class _LogFilter extends LogFilter {
+class LoggerFilter extends LogFilter {
   final Level? loggerLevel;
 
-  _LogFilter({this.loggerLevel});
+  LoggerFilter({this.loggerLevel});
 
   @override
   bool shouldLog(LogEvent event) {
     if (loggerLevel == null) {
-      return !DartUtil.isRelease;
+      return !isRelease;
     } else {
       return event.level.value >= loggerLevel!.value;
     }

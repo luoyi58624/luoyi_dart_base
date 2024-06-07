@@ -1,16 +1,18 @@
-part of luoyi_dart_base;
+import 'dart:async';
+import 'dart:collection';
+import 'dart:convert';
+import 'dart:math' as math;
+import 'package:archive/archive.dart';
+import 'package:path/path.dart' as p;
+import 'package:crypto/crypto.dart' as crypto;
+
+import 'logger.dart';
 
 /// 适用用dart、flutter通用工具类
 class DartUtil {
   DartUtil._();
 
   static final Codec<String, String> _base64Codec = utf8.fuse(base64);
-
-  /// 是否为release版
-  static const bool isRelease = bool.fromEnvironment("dart.vm.product");
-
-  /// 获取当前时间的毫秒
-  static int get currentMilliseconds => DateTime.now().millisecondsSinceEpoch;
 
   /// 判断一个变量是否为空，例如：null、''、[]、{}
   ///
@@ -435,44 +437,6 @@ class DartUtil {
     return false;
   }
 
-  /// 根据条件返回一个新的Map
-  static Map<K, V> mapFilter<K, V>(Map<K, V> map, bool Function(K key, V value) test) {
-    Map<K, V> newMap = {};
-    for (K k in map.keys) {
-      if (test(k, map[k] as V)) {
-        newMap[k] = map[k] as V;
-      }
-    }
-    return newMap;
-  }
-
-  /// 根据keys集合，返回一个新的Map
-  static Map<K, V> mapFilterFromKeys<K, V>(Map<K, V> map, List<K> keys) {
-    Map<K, V> newMap = {};
-    for (K key in keys) {
-      newMap[key] = map[key] as V;
-    }
-    return newMap;
-  }
-
-  /// 将 Map 转换成实际类型，例如：
-  /// ```dart
-  /// // runtimeType: _Map<dynamic, dynamic>
-  /// Map map = {'name': 'hihi', 'age': 20};
-  ///
-  /// // runtimeType: _Map<String, Object>
-  /// Map castMap = DartUtil.mapAutoCast(map);
-  ///
-  /// // runtimeType: _Map<dynamic, dynamic>
-  /// Map map2 = {'name': 'hihi', 'age': 20, 'test': null};
-  ///
-  /// // runtimeType: _Map<String, dynamic>
-  /// Map castMap2 = DartUtil.mapAutoCast(map2);
-  /// ```
-  static dynamic mapAutoCast<K, V>(Map<K, V> map) {
-    return _autoCastMap(map);
-  }
-
   /// 拼接上级地址，返回新的path，主要过滤新地址尾部多余的/
   static String joinParentPath(String path, [String? parentPath]) {
     String $path = parentPath != null ? parentPath + path : path;
@@ -483,7 +447,7 @@ class DartUtil {
   }
 
   /// 计算限制后的元素尺寸，返回类似于自适应大小的图片尺寸
-  static SizeModel calcConstraintsSize(
+  static (double width, double height) calcConstraintsSize(
     double width,
     double height,
     double maxWidth,
@@ -510,7 +474,7 @@ class DartUtil {
         newHeight = height;
       }
     }
-    return SizeModel(newWidth, newHeight);
+    return (newWidth, newHeight);
   }
 
   /// 循环获取列表的内容，如果其索引大于列表的长度，则重头开始继续获取
@@ -556,92 +520,6 @@ class DartUtil {
     final l = values.where((e) => e != null).length;
     return allowAllNull ? l == 0 || l == 1 : l == 1;
   }
-
-  /// 创建一个节流函数，在一定时间内忽略多次点击事件
-  /// * callback 回调函数
-  /// * wait 节流时间(毫秒)
-  ///
-  /// example:
-  /// ```dart
-  /// GestureTapCallback throttleFun = AsyncUtil.throttle(() => print('hello'), 500);
-  ///
-  /// ElevatedButton(
-  ///   onPressed: throttleFun,
-  ///   child: Text('count: $count'),
-  /// )
-  /// // 或者
-  /// ElevatedButton(
-  ///   onPressed: (){
-  ///     throttleFun();
-  ///   },
-  ///   child: Text('count: $count'),
-  /// )
-  ///
-  /// ```
-  static T throttle<T extends Function>(Function fun, [int? wait]) {
-    Timer? timer;
-    void throttleFun() {
-      if (timer != null) return;
-      timer = Timer(Duration(milliseconds: wait ?? 0), () => timer = null);
-      fun();
-    }
-
-    return throttleFun as T;
-  }
-
-  /// 创建一个防抖函数，延迟指定时间执行逻辑，再次执行将重置延迟时间
-  /// * callback 回调函数
-  /// * wait 节流时间(毫秒)
-  /// * immediate 触发事件后是否立即执行首次
-  ///
-  /// example:
-  /// ```dart
-  /// GestureTapCallback debounceFun = AsyncUtil.debounce(() => print('hello'), 500);
-  ///
-  /// ElevatedButton(
-  ///   onPressed: debounceFun,
-  ///   child: Text('count: $count'),
-  /// )
-  /// // 或者
-  /// ElevatedButton(
-  ///   onPressed: (){
-  ///     debounceFun();
-  ///   },
-  ///   child: Text('count: $count'),
-  /// )
-  ///
-  /// ```
-  static T debounce<T extends Function>(Function fun, [int? wait, bool? immediate]) {
-    Timer? timer;
-
-    createTimer([Function? fun]) => timer = Timer(Duration(milliseconds: wait ?? 0), () {
-          timer = null;
-          if (fun != null) fun();
-        });
-
-    void throttleFun() {
-      if (timer == null) {
-        if (immediate == true) {
-          fun();
-          createTimer();
-        } else {
-          createTimer(fun);
-        }
-      } else {
-        timer!.cancel();
-        createTimer(fun);
-      }
-    }
-
-    return throttleFun as T;
-  }
-
-  /// 延迟指定毫秒时间执行函数
-  ///
-  /// @return [Timer] 手动执行cancel方法可以取消延迟任务
-  static Timer delay(void Function() fun, [int? wait]) {
-    return Timer(Duration(milliseconds: wait ?? 0), fun);
-  }
 }
 
 /// 比较两个值的条件类型
@@ -674,136 +552,5 @@ bool _compareResult(CompareType compareType, num result) {
       return result > 0;
     case CompareType.thanEqual:
       return result >= 0;
-  }
-}
-
-/// 自动转换Map的实际类型
-Map _autoCastMap<K, V>(Map<K, V> map) {
-  Map<String, bool> keyTypeMap = {
-    'dynamic': false,
-    'string': false,
-    'int': false,
-    'double': false,
-    'num': false,
-    'bool': false,
-  };
-
-  Map<String, bool> valueTypeMap = {
-    'dynamic': false,
-    'string': false,
-    'int': false,
-    'double': false,
-    'num': false,
-    'bool': false,
-    'null': false,
-    'object': false,
-  };
-
-  map.forEach((k, v) {
-    dynamic key = DartUtil.dynamicToBaseType(k, true);
-    assert(key != null, 'Map key不是基础数据类型，autoCast失败');
-    if (key is int) {
-      keyTypeMap['int'] = true;
-    } else if (key is double) {
-      keyTypeMap['double'] = true;
-    } else if (key is bool) {
-      keyTypeMap['bool'] = true;
-    } else {
-      keyTypeMap['string'] = true;
-    }
-
-    dynamic value = DartUtil.dynamicToBaseType(v);
-    if (value == null) {
-      valueTypeMap['null'] = true;
-    } else if (value is int) {
-      valueTypeMap['int'] = true;
-    } else if (value is double) {
-      valueTypeMap['double'] = true;
-    } else if (value is bool) {
-      valueTypeMap['bool'] = true;
-    } else if (value is String) {
-      valueTypeMap['string'] = true;
-    } else if (value is Map) {
-    } else {
-      valueTypeMap['object'] = true;
-    }
-  });
-
-  keyTypeMap = DartUtil.mapFilter(keyTypeMap, (k, v) => v == true);
-  valueTypeMap = DartUtil.mapFilter(valueTypeMap, (k, v) => v == true);
-
-  late String targetKeyType;
-  late String targetValueType;
-
-  if (keyTypeMap.length == 1) {
-    targetKeyType = keyTypeMap.keys.first;
-  } else if (keyTypeMap.length == 3 && keyTypeMap['num'] == true) {
-    targetKeyType = 'num';
-  } else {
-    targetKeyType = 'dynamic';
-  }
-
-  if (valueTypeMap.length == 1) {
-    targetValueType = valueTypeMap.keys.first;
-  } else if (valueTypeMap.length == 3 && valueTypeMap['num'] == true) {
-    targetValueType = 'num';
-  } else {
-    targetValueType = valueTypeMap['null'] == true ? 'dynamic' : 'object';
-  }
-
-  if (targetKeyType == 'dynamic') {
-    if (targetValueType == 'object') return LinkedHashMap<Object, Object>.from(map);
-    if (targetValueType == 'string') return LinkedHashMap<Object, String>.from(map);
-    if (targetValueType == 'int') return LinkedHashMap<Object, int>.from(map);
-    if (targetValueType == 'double') return LinkedHashMap<Object, double>.from(map);
-    if (targetValueType == 'num') return LinkedHashMap<Object, num>.from(map);
-    if (targetValueType == 'bool') return LinkedHashMap<Object, bool>.from(map);
-    return map.cast<Object, dynamic>();
-  } else {
-    if (targetKeyType == 'string') {
-      if (targetValueType == 'object') return LinkedHashMap<String, Object>.from(map);
-      if (targetValueType == 'string') return LinkedHashMap<String, String>.from(map);
-      if (targetValueType == 'int') return LinkedHashMap<String, int>.from(map);
-      if (targetValueType == 'double') return LinkedHashMap<String, double>.from(map);
-      if (targetValueType == 'num') return LinkedHashMap<String, num>.from(map);
-      if (targetValueType == 'bool') return LinkedHashMap<String, bool>.from(map);
-      return LinkedHashMap<String, dynamic>.from(map);
-    }
-    if (targetKeyType == 'int') {
-      if (targetValueType == 'object') return LinkedHashMap<int, Object>.from(map);
-      if (targetValueType == 'string') return LinkedHashMap<int, String>.from(map);
-      if (targetValueType == 'int') return LinkedHashMap<int, int>.from(map);
-      if (targetValueType == 'double') return LinkedHashMap<int, double>.from(map);
-      if (targetValueType == 'num') return LinkedHashMap<int, num>.from(map);
-      if (targetValueType == 'bool') return LinkedHashMap<int, bool>.from(map);
-      return LinkedHashMap<int, dynamic>.from(map);
-    }
-
-    if (targetKeyType == 'double') {
-      if (targetValueType == 'object') return LinkedHashMap<double, Object>.from(map);
-      if (targetValueType == 'string') return LinkedHashMap<double, String>.from(map);
-      if (targetValueType == 'int') return LinkedHashMap<double, int>.from(map);
-      if (targetValueType == 'double') return LinkedHashMap<double, double>.from(map);
-      if (targetValueType == 'num') return LinkedHashMap<double, num>.from(map);
-      if (targetValueType == 'bool') return LinkedHashMap<double, bool>.from(map);
-      return LinkedHashMap<double, dynamic>.from(map);
-    }
-    if (targetKeyType == 'bool') {
-      if (targetValueType == 'object') return LinkedHashMap<bool, Object>.from(map);
-      if (targetValueType == 'string') return LinkedHashMap<bool, String>.from(map);
-      if (targetValueType == 'int') return LinkedHashMap<bool, int>.from(map);
-      if (targetValueType == 'double') return LinkedHashMap<bool, double>.from(map);
-      if (targetValueType == 'num') return LinkedHashMap<bool, num>.from(map);
-      if (targetValueType == 'bool') return LinkedHashMap<bool, bool>.from(map);
-      return LinkedHashMap<bool, dynamic>.from(map);
-    }
-
-    if (targetValueType == 'object') return LinkedHashMap<num, Object>.from(map);
-    if (targetValueType == 'string') return LinkedHashMap<num, String>.from(map);
-    if (targetValueType == 'int') return LinkedHashMap<num, int>.from(map);
-    if (targetValueType == 'double') return LinkedHashMap<num, double>.from(map);
-    if (targetValueType == 'num') return LinkedHashMap<num, num>.from(map);
-    if (targetValueType == 'bool') return LinkedHashMap<num, bool>.from(map);
-    return LinkedHashMap<num, dynamic>.from(map);
   }
 }
