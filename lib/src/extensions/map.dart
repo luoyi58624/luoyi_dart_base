@@ -6,7 +6,7 @@ extension DartMapExtension on Map {
   /// 根据条件返回一个新的Map
   Map<K, V> filter<K, V>(bool Function(K key, V value) test) {
     Map<K, V> newMap = {};
-    for (K k in this.keys) {
+    for (K k in keys) {
       if (test(k, this[k] as V)) {
         newMap[k] = this[k] as V;
       }

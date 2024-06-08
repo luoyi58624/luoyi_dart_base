@@ -1,10 +1,10 @@
 name: luoyi_dart_base
-description: my dart base library.
+description: my dart base library, It's just my private repository, not developed externally.
 version: 1.8.2
 repository: https://github.com/luoyi58624/luoyi_dart_base
 
 environment:
-  sdk: ^3.0.0
+  sdk: ^3.4.0
 
 dependencies:
   # 编码和解码各种存档和压缩格式
@@ -16,5 +16,5 @@ dependencies:
   uuid: ^4.3.3
 
 dev_dependencies:
-  lints: ^3.0.0
+  lints: ^4.0.0
   test: ^1.24.0

@@ -1,5 +1,4 @@
 import 'package:luoyi_dart_base/luoyi_dart_base.dart';
-import 'package:luoyi_dart_base/src/extensions/map.dart';
 import 'package:test/test.dart';
 
 void main() {

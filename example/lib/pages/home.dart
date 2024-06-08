@@ -1,6 +1,8 @@
-import 'package:example/pages/debounce.dart';
-import 'package:example/pages/throttle.dart';
+
 import 'package:flutter/material.dart';
+
+import 'debounce.dart';
+import 'throttle.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

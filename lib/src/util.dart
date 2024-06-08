@@ -1,5 +1,3 @@
-import 'dart:async';
-import 'dart:collection';
 import 'dart:convert';
 import 'dart:math' as math;
 import 'package:archive/archive.dart';
@@ -272,8 +270,7 @@ class DartUtil {
     dynamic date1,
     dynamic date2,
   ) {
-    return ((safeDate(date1).millisecondsSinceEpoch - safeDate(date2).millisecondsSinceEpoch) / 1000 / 60 / 60 / 24)
-        .truncate();
+    return ((safeDate(date1).millisecondsSinceEpoch - safeDate(date2).millisecondsSinceEpoch) / 1000 / 60 / 60 / 24).truncate();
   }
 
   /// 时间戳转倒计时
@@ -364,8 +361,7 @@ class DartUtil {
       (ext ?? ['jpg', 'jpeg', 'png', 'gif', 'bmp']).contains(getFileSuffix(fileName));
 
   /// 判断文件是否是静态图片
-  static bool isStaticImage(String fileName, [List<String>? ext]) =>
-      (ext ?? ['jpg', 'jpeg', 'png']).contains(getFileSuffix(fileName));
+  static bool isStaticImage(String fileName, [List<String>? ext]) => (ext ?? ['jpg', 'jpeg', 'png']).contains(getFileSuffix(fileName));
 
   /// 判断文件是否是视频
   static bool isVideo(String fileName, [List<String>? ext]) =>
