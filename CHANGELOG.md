@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.8.2](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.8.1...v1.8.2) (2024-06-08)
+
+
+### Bug Fixes
+
+* github脚本添加flutter环境 ([6a1a7c3](https://github.com/luoyi58624/luoyi_dart_base/commit/6a1a7c33a06de210f379ca27cd2338fd032f19f5))
+* pub publish必须要求example，回退名称 ([b83e0c5](https://github.com/luoyi58624/luoyi_dart_base/commit/b83e0c5df6f844c6bef463ab6ad8b3e0271482b3))
+
 ## [1.8.1](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.8.0...v1.8.1) (2024-06-07)
 
 
