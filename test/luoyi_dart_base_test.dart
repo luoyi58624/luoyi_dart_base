@@ -9,11 +9,22 @@ void main() {
       expect(DartUtil.onlyOneNotNull([null, null]), isFalse);
       expect(DartUtil.onlyOneNotNull([null, null, 1]), isTrue);
       expect(DartUtil.onlyOneNotNull([null, null, null]), isFalse);
-      expect(DartUtil.onlyOneNotNull([null, null, null], allowAllNull: true), isTrue);
+      expect(DartUtil.onlyOneNotNull([null, null, null], allowAllNull: true),
+          isTrue);
     });
   });
 
   group('DartMapExtension', () {
+    test('filter', () {
+      final map = {'name': 'hihi', 'age': 20};
+      final newMap = map.filter((k, v) => v is int);
+      expect(newMap, {'age': 20});
+    });
+    test('filterFromKeys', () {
+      final map = {'name': 'hihi', 'age': 20, 'money': 1000};
+      final newMap = map.filterFromKeys(['age', 'money']);
+      expect(newMap, {'age': 20, 'money': 1000});
+    });
     test('autoCast', () {
       Map map = {'name': 'hihi', 'age': 20};
       Map<String, dynamic> castMap = map.autoCast();
