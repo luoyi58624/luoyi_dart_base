@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.9.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.8.3...v1.9.0) (2024-07-08)
+
+
+### Features
+
+* 新增platform工具类 ([aaa0e79](https://github.com/luoyi58624/luoyi_dart_base/commit/aaa0e7975eeab20f2fe65f8f594681f8a22ee419))
+
+
+### Bug Fixes
+
+* 修复Map扩展函数类型问题 ([29b8249](https://github.com/luoyi58624/luoyi_dart_base/commit/29b8249014d783b5d475b5519fa5e97113c25eeb))
+
 ## [1.8.3](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.8.2...v1.8.3) (2024-06-08)
 
 
