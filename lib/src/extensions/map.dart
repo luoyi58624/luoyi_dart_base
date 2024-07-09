@@ -117,78 +117,130 @@ Map _autoCastMap<K, V>(Map<K, V> map) {
   }
 
   if (targetKeyType == 'dynamic') {
-    if (targetValueType == 'object')
+    if (targetValueType == 'object') {
       return LinkedHashMap<Object, Object>.from(map);
-    if (targetValueType == 'string')
+    }
+    if (targetValueType == 'string') {
       return LinkedHashMap<Object, String>.from(map);
-    if (targetValueType == 'int') return LinkedHashMap<Object, int>.from(map);
-    if (targetValueType == 'double')
+    }
+    if (targetValueType == 'int') {
+      return LinkedHashMap<Object, int>.from(map);
+    }
+    if (targetValueType == 'double') {
       return LinkedHashMap<Object, double>.from(map);
-    if (targetValueType == 'num') return LinkedHashMap<Object, num>.from(map);
-    if (targetValueType == 'bool') return LinkedHashMap<Object, bool>.from(map);
+    }
+    if (targetValueType == 'num') {
+      return LinkedHashMap<Object, num>.from(map);
+    }
+    if (targetValueType == 'bool') {
+      return LinkedHashMap<Object, bool>.from(map);
+    }
     return map.cast<Object, dynamic>();
   } else {
     if (targetKeyType == 'string') {
-      if (targetValueType == 'object')
+      if (targetValueType == 'object') {
         return LinkedHashMap<String, Object>.from(map);
-      if (targetValueType == 'string')
+      }
+      if (targetValueType == 'string') {
         return LinkedHashMap<String, String>.from(map);
-      if (targetValueType == 'int') return LinkedHashMap<String, int>.from(map);
-      if (targetValueType == 'double')
+      }
+      if (targetValueType == 'int') {
+        return LinkedHashMap<String, int>.from(map);
+      }
+      if (targetValueType == 'double') {
         return LinkedHashMap<String, double>.from(map);
-      if (targetValueType == 'num') return LinkedHashMap<String, num>.from(map);
-      if (targetValueType == 'bool')
+      }
+      if (targetValueType == 'num') {
+        return LinkedHashMap<String, num>.from(map);
+      }
+      if (targetValueType == 'bool') {
         return LinkedHashMap<String, bool>.from(map);
+      }
       return LinkedHashMap<String, dynamic>.from(map);
     }
     if (targetKeyType == 'int') {
-      if (targetValueType == 'object')
+      if (targetValueType == 'object') {
         return LinkedHashMap<int, Object>.from(map);
-      if (targetValueType == 'string')
+      }
+      if (targetValueType == 'string') {
         return LinkedHashMap<int, String>.from(map);
-      if (targetValueType == 'int') return LinkedHashMap<int, int>.from(map);
-      if (targetValueType == 'double')
+      }
+      if (targetValueType == 'int') {
+        return LinkedHashMap<int, int>.from(map);
+      }
+      if (targetValueType == 'double') {
         return LinkedHashMap<int, double>.from(map);
-      if (targetValueType == 'num') return LinkedHashMap<int, num>.from(map);
-      if (targetValueType == 'bool') return LinkedHashMap<int, bool>.from(map);
+      }
+      if (targetValueType == 'num') {
+        return LinkedHashMap<int, num>.from(map);
+      }
+      if (targetValueType == 'bool') {
+        return LinkedHashMap<int, bool>.from(map);
+      }
       return LinkedHashMap<int, dynamic>.from(map);
     }
 
     if (targetKeyType == 'double') {
-      if (targetValueType == 'object')
+      if (targetValueType == 'object') {
         return LinkedHashMap<double, Object>.from(map);
-      if (targetValueType == 'string')
+      }
+      if (targetValueType == 'string') {
         return LinkedHashMap<double, String>.from(map);
-      if (targetValueType == 'int') return LinkedHashMap<double, int>.from(map);
-      if (targetValueType == 'double')
+      }
+      if (targetValueType == 'int') {
+        return LinkedHashMap<double, int>.from(map);
+      }
+      if (targetValueType == 'double') {
         return LinkedHashMap<double, double>.from(map);
-      if (targetValueType == 'num') return LinkedHashMap<double, num>.from(map);
-      if (targetValueType == 'bool')
+      }
+      if (targetValueType == 'num') {
+        return LinkedHashMap<double, num>.from(map);
+      }
+      if (targetValueType == 'bool') {
         return LinkedHashMap<double, bool>.from(map);
+      }
       return LinkedHashMap<double, dynamic>.from(map);
     }
     if (targetKeyType == 'bool') {
-      if (targetValueType == 'object')
+      if (targetValueType == 'object') {
         return LinkedHashMap<bool, Object>.from(map);
-      if (targetValueType == 'string')
+      }
+      if (targetValueType == 'string') {
         return LinkedHashMap<bool, String>.from(map);
-      if (targetValueType == 'int') return LinkedHashMap<bool, int>.from(map);
-      if (targetValueType == 'double')
+      }
+      if (targetValueType == 'int') {
+        return LinkedHashMap<bool, int>.from(map);
+      }
+      if (targetValueType == 'double') {
         return LinkedHashMap<bool, double>.from(map);
-      if (targetValueType == 'num') return LinkedHashMap<bool, num>.from(map);
-      if (targetValueType == 'bool') return LinkedHashMap<bool, bool>.from(map);
+      }
+      if (targetValueType == 'num') {
+        return LinkedHashMap<bool, num>.from(map);
+      }
+      if (targetValueType == 'bool') {
+        return LinkedHashMap<bool, bool>.from(map);
+      }
       return LinkedHashMap<bool, dynamic>.from(map);
     }
 
-    if (targetValueType == 'object')
+    if (targetValueType == 'object') {
       return LinkedHashMap<num, Object>.from(map);
-    if (targetValueType == 'string')
+    }
+    if (targetValueType == 'string') {
       return LinkedHashMap<num, String>.from(map);
-    if (targetValueType == 'int') return LinkedHashMap<num, int>.from(map);
-    if (targetValueType == 'double')
+    }
+    if (targetValueType == 'int') {
+      return LinkedHashMap<num, int>.from(map);
+    }
+    if (targetValueType == 'double') {
       return LinkedHashMap<num, double>.from(map);
-    if (targetValueType == 'num') return LinkedHashMap<num, num>.from(map);
-    if (targetValueType == 'bool') return LinkedHashMap<num, bool>.from(map);
+    }
+    if (targetValueType == 'num') {
+      return LinkedHashMap<num, num>.from(map);
+    }
+    if (targetValueType == 'bool') {
+      return LinkedHashMap<num, bool>.from(map);
+    }
     return LinkedHashMap<num, dynamic>.from(map);
   }
 }

@@ -1,5 +1,7 @@
 library luoyi_dart_base;
 
+export 'package:collection/collection.dart';
+
 export 'package:logger/logger.dart' show Level;
 
 export 'src/global.dart';
