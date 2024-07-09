@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.9.0...v1.10.0) (2024-07-09)
+
+
+### Features
+
+* 导出collection ([b0dc063](https://github.com/luoyi58624/luoyi_dart_base/commit/b0dc063f123e8d0d7004cab8fcb805bff5de5a4b))
+
 ## [1.9.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.8.3...v1.9.0) (2024-07-08)
 
 
