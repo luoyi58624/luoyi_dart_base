@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math' as math;
 import 'package:archive/archive.dart';
+import 'package:luoyi_dart_base/src/models.dart';
 import 'package:path/path.dart' as p;
 import 'package:crypto/crypto.dart' as crypto;
 
@@ -262,7 +263,9 @@ class DartUtil {
     dynamic date1,
     dynamic date2,
   ) {
-    return ((safeDate(date1).millisecondsSinceEpoch - safeDate(date2).millisecondsSinceEpoch)).truncate();
+    return ((safeDate(date1).millisecondsSinceEpoch -
+            safeDate(date2).millisecondsSinceEpoch))
+        .truncate();
   }
 
   /// 获取date1和date2相差的天数
@@ -270,7 +273,13 @@ class DartUtil {
     dynamic date1,
     dynamic date2,
   ) {
-    return ((safeDate(date1).millisecondsSinceEpoch - safeDate(date2).millisecondsSinceEpoch) / 1000 / 60 / 60 / 24).truncate();
+    return ((safeDate(date1).millisecondsSinceEpoch -
+                safeDate(date2).millisecondsSinceEpoch) /
+            1000 /
+            60 /
+            60 /
+            24)
+        .truncate();
   }
 
   /// 时间戳转倒计时
@@ -296,14 +305,16 @@ class DartUtil {
   }
 
   /// 以指定格式解析日期
-  static String formatDate(dynamic value, {String format = 'yyyy-MM-dd HH:mm:ss'}) {
+  static String formatDate(dynamic value,
+      {String format = 'yyyy-MM-dd HH:mm:ss'}) {
     var dateTime = safeDate(value);
     if (format.contains('yy')) {
       String year = dateTime.year.toString();
       if (format.contains('yyyy')) {
         format = format.replaceAll('yyyy', year);
       } else {
-        format = format.replaceAll('yy', year.substring(year.length - 2, year.length));
+        format = format.replaceAll(
+            'yy', year.substring(year.length - 2, year.length));
       }
     }
 
@@ -317,10 +328,12 @@ class DartUtil {
     return format;
   }
 
-  static String _comFormat(int value, String format, String single, String full) {
+  static String _comFormat(
+      int value, String format, String single, String full) {
     if (format.contains(single)) {
       if (format.contains(full)) {
-        format = format.replaceAll(full, value < 10 ? '0$value' : value.toString());
+        format =
+            format.replaceAll(full, value < 10 ? '0$value' : value.toString());
       } else {
         format = format.replaceAll(single, value.toString());
       }
@@ -344,7 +357,8 @@ class DartUtil {
   static String? getUrlFileName(String? url) => p.basename(url ?? '');
 
   /// 获取地址中的文件名但不包含扩展名
-  static String? getUrlFileNameNoExtension(String? url) => p.basenameWithoutExtension(url ?? '');
+  static String? getUrlFileNameNoExtension(String? url) =>
+      p.basenameWithoutExtension(url ?? '');
 
   /// 获取文件名后缀
   static String? getFileSuffix(String fileName) {
@@ -358,66 +372,50 @@ class DartUtil {
 
   /// 判断文件是否是图片
   static bool isImage(String fileName, [List<String>? ext]) =>
-      (ext ?? ['jpg', 'jpeg', 'png', 'gif', 'bmp']).contains(getFileSuffix(fileName));
+      (ext ?? ['jpg', 'jpeg', 'png', 'gif', 'bmp'])
+          .contains(getFileSuffix(fileName));
 
   /// 判断文件是否是静态图片
-  static bool isStaticImage(String fileName, [List<String>? ext]) => (ext ?? ['jpg', 'jpeg', 'png']).contains(getFileSuffix(fileName));
+  static bool isStaticImage(String fileName, [List<String>? ext]) =>
+      (ext ?? ['jpg', 'jpeg', 'png']).contains(getFileSuffix(fileName));
 
   /// 判断文件是否是视频
   static bool isVideo(String fileName, [List<String>? ext]) =>
-      (ext ?? ['mkv', 'mp4', 'avi', 'mov', 'wmv', 'mpg', 'mpeg']).contains(getFileSuffix(fileName));
+      (ext ?? ['mkv', 'mp4', 'avi', 'mov', 'wmv', 'mpg', 'mpeg'])
+          .contains(getFileSuffix(fileName));
 
   /// 判断文件是否是音频
   static bool isAudio(String fileName, [List<String>? ext]) =>
-      (ext ?? ['mp3', 'wav', 'wma', 'amr', 'ogg']).contains(getFileSuffix(fileName));
+      (ext ?? ['mp3', 'wav', 'wma', 'amr', 'ogg'])
+          .contains(getFileSuffix(fileName));
 
   /// 判断文件是否是PPT
-  static bool isPPT(String fileName) => ['ppt', 'pptx'].contains(getFileSuffix(fileName));
+  static bool isPPT(String fileName) =>
+      ['ppt', 'pptx'].contains(getFileSuffix(fileName));
 
   /// 判断文件是否是Word
-  static bool isWord(String fileName) => ['doc', 'docx'].contains(getFileSuffix(fileName));
+  static bool isWord(String fileName) =>
+      ['doc', 'docx'].contains(getFileSuffix(fileName));
 
   /// 判断文件是否是Excel
-  static bool isExcel(String fileName) => ['xls', 'xlsx'].contains(getFileSuffix(fileName));
+  static bool isExcel(String fileName) =>
+      ['xls', 'xlsx'].contains(getFileSuffix(fileName));
 
-  /// Checks if string is URL.
-  static bool isURL(String s) => hasMatch(s,
-      r"^((((H|h)(T|t)|(F|f))(T|t)(P|p)((S|s)?))\://)?(www.|[a-zA-Z0-9].)[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,7}(\:[0-9]{1,5})*(/($|[a-zA-Z0-9\.\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*$");
-
-  /// Checks if string is email.
+  /// 判断是否是邮箱
   static bool isEmail(String s) => hasMatch(s,
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
 
-  /// Checks if string is phone number.
+  /// 判断是否是手机号
   static bool isPhoneNumber(String s) {
     if (s.length > 16 || s.length < 9) return false;
     return hasMatch(s, r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$');
   }
 
+  static bool isHttp(String url) => url.startsWith('http');
+
   /// Checks if string is DateTime (UTC or Iso8601).
-  static bool isDateTime(String s) => hasMatch(s, r'^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}.\d{3}Z?$');
-
-  /// Checks if string is MD5 hash.
-  static bool isMD5(String s) => hasMatch(s, r'^[a-f0-9]{32}$');
-
-  /// Checks if string is SHA1 hash.
-  static bool isSHA1(String s) => hasMatch(s, r'(([A-Fa-f0-9]{2}\:){19}[A-Fa-f0-9]{2}|[A-Fa-f0-9]{40})');
-
-  /// Checks if string is SHA256 hash.
-  static bool isSHA256(String s) => hasMatch(s, r'([A-Fa-f0-9]{2}\:){31}[A-Fa-f0-9]{2}|[A-Fa-f0-9]{64}');
-
-  /// Checks if string is SSN (Social Security Number).
-  static bool isSSN(String s) => hasMatch(s, r'^(?!0{3}|6{3}|9[0-9]{2})[0-9]{3}-?(?!0{2})[0-9]{2}-?(?!0{4})[0-9]{4}$');
-
-  /// Checks if string is binary.
-  static bool isBinary(String s) => hasMatch(s, r'^[0-1]+$');
-
-  /// Checks if string is IPv4.
-  static bool isIPv4(String s) => hasMatch(s, r'^(?:(?:^|\.)(?:2(?:5[0-5]|[0-4]\d)|1?\d?\d)){4}$');
-
-  /// Checks if string is IPv6.
-  static bool isIPv6(String s) => hasMatch(s,
-      r'^((([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}:[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){5}:([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){4}:([0-9A-Fa-f]{1,4}:){0,2}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){3}:([0-9A-Fa-f]{1,4}:){0,3}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){2}:([0-9A-Fa-f]{1,4}:){0,4}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(([0-9A-Fa-f]{1,4}:){0,5}:((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|(::([0-9A-Fa-f]{1,4}:){0,5}((\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b)\.){3}(\b((25[0-5])|(1\d{2})|(2[0-4]\d)|(\d{1,2}))\b))|([0-9A-Fa-f]{1,4}::([0-9A-Fa-f]{1,4}:){0,5}[0-9A-Fa-f]{1,4})|(::([0-9A-Fa-f]{1,4}:){0,6}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,7}:))$');
+  static bool isDateTime(String s) =>
+      hasMatch(s, r'^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}.\d{3}Z?$');
 
   static bool hasMatch(String? value, String pattern) {
     return (value == null) ? false : RegExp(pattern).hasMatch(value);
@@ -443,7 +441,7 @@ class DartUtil {
   }
 
   /// 计算限制后的元素尺寸，返回类似于自适应大小的图片尺寸
-  static (double width, double height) calcConstraintsSize(
+  static SizeModel calcConstraintsSize(
     double width,
     double height,
     double maxWidth,
@@ -470,7 +468,7 @@ class DartUtil {
         newHeight = height;
       }
     }
-    return (newWidth, newHeight);
+    return SizeModel(newWidth, newHeight);
   }
 
   /// 循环获取列表的内容，如果其索引大于列表的长度，则重头开始继续获取
@@ -485,7 +483,8 @@ class DartUtil {
   }
 
   /// 使用md5加密字符串
-  static String md5(String str) => crypto.md5.convert(utf8.encode(str)).toString();
+  static String md5(String str) =>
+      crypto.md5.convert(utf8.encode(str)).toString();
 
   /// 字符串转base64
   static String toBase64(String str) => _base64Codec.encode(str);

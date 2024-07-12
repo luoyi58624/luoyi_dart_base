@@ -14,10 +14,8 @@ class GeneralPlatform {
           _navigator.appVersion.contains('x11')) &&
       !isAndroid;
 
-  // @check https://developer.chrome.com/multidevice/user-agent
   static final bool isAndroid = _navigator.appVersion.contains('Android ');
 
-  // maxTouchPoints is needed to separate iPad iOS13 vs new MacOS
   static final bool isIOS =
       RegExp(r'/iPad|iPhone|iPod/').hasMatch(_navigator.platform) ||
           (_navigator.platform == 'MacIntel' && _navigator.maxTouchPoints > 1);
