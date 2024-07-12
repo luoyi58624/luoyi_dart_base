@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.11.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.10.0...v1.11.0) (2024-07-12)
+
+
+### Features
+
+* 新增序列化模型以及常用的基础模型 ([6d65137](https://github.com/luoyi58624/luoyi_dart_base/commit/6d65137a2b0980bbafffb9048250ebacb4f750d2))
+
+
+### Chores
+
+* 导出logger部分函数 ([fc879b8](https://github.com/luoyi58624/luoyi_dart_base/commit/fc879b84a2f160d2a242d09aadf2739745e661dc))
+* 新增.release-please-manifest.json ([163b8c7](https://github.com/luoyi58624/luoyi_dart_base/commit/163b8c7f40022463d4b40a1f1474719a63c454ab))
+* 新增release-please-config.json ([84d50a0](https://github.com/luoyi58624/luoyi_dart_base/commit/84d50a09fb71bd364c0f3e7da8fbb529c585819a))
+
 ## [1.10.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.9.0...v1.10.0) (2024-07-09)
 
 
