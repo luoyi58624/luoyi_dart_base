@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.2](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.11.1...v1.11.2) (2024-07-23)
+
+
+### Chores
+
+* DartFunExtension delay argument update num type ([ef99e38](https://github.com/luoyi58624/luoyi_dart_base/commit/ef99e38da8f336c404c4ca22501c560dc5c74976))
+
 ## [1.11.1](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.11.0...v1.11.1) (2024-07-23)
 
 
