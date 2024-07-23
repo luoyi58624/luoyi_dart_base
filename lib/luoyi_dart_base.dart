@@ -5,6 +5,6 @@ export 'src/logger.dart';
 export 'src/models.dart';
 export 'src/util.dart';
 export 'src/platform/platform.dart';
+export 'src/extensions/duration.dart';
 export 'src/extensions/map.dart';
-export 'src/extensions/num.dart';
 export 'src/extensions/fun.dart';
