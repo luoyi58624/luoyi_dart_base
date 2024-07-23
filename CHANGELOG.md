@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.12.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.11.2...v1.12.0) (2024-07-23)
+
+
+### Features
+
+* remove num extension, add Duration extension ([27d68c9](https://github.com/luoyi58624/luoyi_dart_base/commit/27d68c980bd52bbee77f33e03a4fda025656fa4b))
+
+
+### Chores
+
+* rollback DartFunExtension ([ca76027](https://github.com/luoyi58624/luoyi_dart_base/commit/ca76027e0317515453d58bcfecc7b5b121edae90))
+
 ## [1.11.2](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.11.1...v1.11.2) (2024-07-23)
 
 
