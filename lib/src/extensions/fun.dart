@@ -95,6 +95,7 @@ extension DartFunExtension on Function {
   /// 延迟指定时间执行函数，单位：秒
   ///
   /// @return [Timer] 手动执行cancel方法可以取消延迟任务
-  Timer delay([int? wait]) =>
-      Timer(Duration(seconds: max(wait ?? 0, 0)), () => this());
+  Timer delay([num? wait]) => Timer(
+      Duration(milliseconds: max(((wait ?? 0) * 1000).round(), 0)),
+      () => this());
 }
