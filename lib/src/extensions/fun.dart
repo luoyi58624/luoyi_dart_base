@@ -68,7 +68,8 @@ extension DartFunExtension on Function {
   /// * key 如果目标函数已经定义，那么你可以忽略此参数，但如果是匿名函数，你必须手动添加一个标识符
   /// * leading 是否在等待时间之前执行一次，默认false
   /// * trailing 是否在等待时间结束后执行，默认true
-  dynamic debounce(int wait, {String? key, bool leading = false, bool trailing = true}) {
+  dynamic debounce(int wait,
+      {String? key, bool leading = false, bool trailing = true}) {
     if (wait <= 0) return this;
     key ??= hashCode.toString();
 
@@ -91,8 +92,9 @@ extension DartFunExtension on Function {
     };
   }
 
-  /// 延迟指定毫秒时间执行函数
+  /// 延迟指定时间执行函数，单位：秒
   ///
   /// @return [Timer] 手动执行cancel方法可以取消延迟任务
-  Timer delay([int? wait]) => Timer(Duration(milliseconds: max(wait ?? 0, 0)), () => this());
+  Timer delay([int? wait]) =>
+      Timer(Duration(seconds: max(wait ?? 0, 0)), () => this());
 }
