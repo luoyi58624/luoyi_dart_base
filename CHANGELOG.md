@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.1](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.11.0...v1.11.1) (2024-07-23)
+
+
+### Chores
+
+* DartFunExtension delay argument update: milliseconds -&gt; seconds ([3fce8e1](https://github.com/luoyi58624/luoyi_dart_base/commit/3fce8e16cb541134338df9670a8270df02010d3a))
+
 ## [1.11.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.10.0...v1.11.0) (2024-07-12)
 
 
