@@ -7,7 +7,7 @@ const bool isRelease = bool.fromEnvironment("dart.vm.product");
 int get currentMilliseconds => DateTime.now().millisecondsSinceEpoch;
 
 /// 获取当前时间的微秒
-int get microsecondsSinceEpoch => DateTime.now().microsecondsSinceEpoch;
+int get currentMicroseconds => DateTime.now().microsecondsSinceEpoch;
 
 /// uuid全局实例对象
 ///

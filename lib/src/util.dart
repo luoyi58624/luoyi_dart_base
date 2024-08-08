@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:math' as math;
 import 'package:archive/archive.dart';
-import 'package:luoyi_dart_base/src/models.dart';
 import 'package:path/path.dart' as p;
 import 'package:crypto/crypto.dart' as crypto;
 
 import 'logger.dart';
 
-/// 适用用dart、flutter通用工具类
 class DartUtil {
   DartUtil._();
 
@@ -93,24 +91,16 @@ class DartUtil {
   }
 
   /// 安全解析String，如果传递的value为空，则返回一个默认值
-  static String safeString(
-    dynamic value, {
-    String defaultValue = '',
-    String? suffixText, // 字符串后缀文字 (如果返回的字符串不为空)
-  }) {
+  static String safeString(dynamic value, [String defaultValue = '']) {
     if (isEmpty(value)) {
       return defaultValue;
     } else {
-      if (suffixText == null) {
-        return value.toString();
-      } else {
-        return value.toString() + suffixText;
-      }
+      return value.toString();
     }
   }
 
   /// 安全解析int，如果传递的value不是num类型，则返回默认值
-  static int safeInt(dynamic value, {int defaultValue = 0}) {
+  static int safeInt(dynamic value, [int defaultValue = 0]) {
     if (value is int) {
       return value.isNaN ? defaultValue : value;
     } else if (value is double) {
@@ -123,7 +113,7 @@ class DartUtil {
   }
 
   /// 安全解析double，如果传递的value不是num类型，则返回默认值
-  static double safeDouble(dynamic value, {double defaultValue = 0.0}) {
+  static double safeDouble(dynamic value, [double defaultValue = 0.0]) {
     if (value is double) {
       return value.isNaN ? defaultValue : value;
     } else if (value is int) {
@@ -136,7 +126,7 @@ class DartUtil {
   }
 
   /// 安全解析bool类型
-  static bool safeBool(dynamic value, {bool defaultValue = false}) {
+  static bool safeBool(dynamic value, [bool defaultValue = false]) {
     if (value is String) {
       try {
         return bool.parse(value, caseSensitive: false);
@@ -150,7 +140,7 @@ class DartUtil {
   }
 
   /// 安全解析List，若解析失败则返回空List
-  static List<T> safeList<T>(dynamic value, {List<T> defaultValue = const []}) {
+  static List<T> safeList<T>(dynamic value, [List<T> defaultValue = const []]) {
     if (value is List) {
       try {
         return value.cast<T>();
@@ -165,10 +155,7 @@ class DartUtil {
 
   /// 安全解析日期，支持字符串、时间戳等格式解析，如果格式不正确则返回defaultValue，
   /// 如果defaultValue为空，则会返回当前时间。
-  static DateTime safeDate(
-    dynamic value, {
-    dynamic defaultValue,
-  }) {
+  static DateTime safeDate(dynamic value, [dynamic defaultValue]) {
     if (isEmpty(value)) {
       return _defaultDate(defaultValue);
     } else if (value is String) {
@@ -204,18 +191,18 @@ class DartUtil {
   /// 安全地比较两个数字：小于、等于、大于、小于等于、大于等于。
   static bool compareNum(
     dynamic value1,
-    dynamic value2, {
+    dynamic value2, [
     CompareType compareType = CompareType.equal,
-  }) {
+  ]) {
     return _compareResult(compareType, safeDouble(value1) - safeDouble(value2));
   }
 
   /// 安全地比较两个日期，允许传入2个任意类型的数据，它们都会安全地转化为DateTime类型进行比较
   static bool compareDate(
     dynamic date1,
-    dynamic date2, {
+    dynamic date2, [
     CompareType compareType = CompareType.equal,
-  }) {
+  ]) {
     late int result; // 比较结果
     int nullValue1 = isEmpty(date1) ? 0 : 1;
     int nullValue2 = isEmpty(date2) ? 0 : 1;
@@ -252,27 +239,21 @@ class DartUtil {
   /// 比较两个日期，如果为true，则返回date1，否则返回date2。
   static DateTime getCompareDate(
     DateTime date1,
-    DateTime date2, {
+    DateTime date2, [
     CompareType compareType = CompareType.equal,
-  }) {
-    return compareDate(date1, date2, compareType: compareType) ? date1 : date2;
+  ]) {
+    return compareDate(date1, date2, compareType) ? date1 : date2;
   }
 
   /// 获取date1和date2相差的时间，单位：毫秒
-  static int diffDate(
-    dynamic date1,
-    dynamic date2,
-  ) {
+  static int diffDate(dynamic date1, dynamic date2) {
     return ((safeDate(date1).millisecondsSinceEpoch -
             safeDate(date2).millisecondsSinceEpoch))
         .truncate();
   }
 
   /// 获取date1和date2相差的天数
-  static int diffDay(
-    dynamic date1,
-    dynamic date2,
-  ) {
+  static int diffDay(dynamic date1, dynamic date2) {
     return ((safeDate(date1).millisecondsSinceEpoch -
                 safeDate(date2).millisecondsSinceEpoch) /
             1000 /
@@ -305,8 +286,10 @@ class DartUtil {
   }
 
   /// 以指定格式解析日期
-  static String formatDate(dynamic value,
-      {String format = 'yyyy-MM-dd HH:mm:ss'}) {
+  static String formatDate(
+    dynamic value, [
+    String format = 'yyyy-MM-dd HH:mm:ss',
+  ]) {
     var dateTime = safeDate(value);
     if (format.contains('yy')) {
       String year = dateTime.year.toString();
@@ -438,37 +421,6 @@ class DartUtil {
       $path = $path.substring(0, $path.length - 1);
     }
     return $path;
-  }
-
-  /// 计算限制后的元素尺寸，返回类似于自适应大小的图片尺寸
-  static SizeModel calcConstraintsSize(
-    double width,
-    double height,
-    double maxWidth,
-    double maxHeight,
-  ) {
-    late double newWidth;
-    late double newHeight;
-    if (width > height) {
-      if (width > maxWidth) {
-        newWidth = maxWidth;
-        double aspect = maxWidth / width;
-        newHeight = (height * aspect).ceilToDouble();
-      } else {
-        newWidth = width;
-        newHeight = height;
-      }
-    } else {
-      if (height > maxHeight) {
-        newHeight = maxHeight;
-        double aspect = maxHeight / height;
-        newWidth = (width * aspect).ceilToDouble();
-      } else {
-        newWidth = width;
-        newHeight = height;
-      }
-    }
-    return SizeModel(newWidth, newHeight);
   }
 
   /// 循环获取列表的内容，如果其索引大于列表的长度，则重头开始继续获取

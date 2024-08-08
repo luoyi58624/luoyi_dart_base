@@ -11,11 +11,10 @@ dependencies:
   archive: ^3.4.10
   # 一组加密哈希函数：MD5、SHA
   crypto: ^3.0.3
-  logger: ^2.1.0
+  logger: ^2.4.0
   path: ^1.9.0
-  uuid: ^4.3.3
+  uuid: ^4.4.2
   collection: ^1.18.0
-  web: ^0.5.1
 
 dev_dependencies:
   lints: ^4.0.0
