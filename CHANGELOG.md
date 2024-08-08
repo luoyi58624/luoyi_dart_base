@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.12.0...v1.13.0) (2024-08-08)
+
+
+### Features
+
+* add DartIntExtension、remove PlatformUtil、remove models ([523581b](https://github.com/luoyi58624/luoyi_dart_base/commit/523581bad09818e611506605b5eb03a3a662918e))
+
 ## [1.12.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.11.2...v1.12.0) (2024-07-23)
 
 
