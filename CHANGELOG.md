@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.1](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.13.0...v1.13.1) (2024-08-24)
+
+
+### Chores
+
+* add firstUpperCase ([f7d917f](https://github.com/luoyi58624/luoyi_dart_base/commit/f7d917f3885ec3b8704e84a7925b0a01170f69c3))
+
 ## [1.13.0](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.12.0...v1.13.0) (2024-08-08)
 
 
