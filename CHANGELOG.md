@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.2](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.13.1...v1.13.2) (2024-08-24)
+
+
+### Chores
+
+* export String ext ([2caaad4](https://github.com/luoyi58624/luoyi_dart_base/commit/2caaad443c382f6bbe2c787b1dc4bc25bdd92ca0))
+
 ## [1.13.1](https://github.com/luoyi58624/luoyi_dart_base/compare/v1.13.0...v1.13.1) (2024-08-24)
 
 
